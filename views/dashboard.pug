@@ -1,0 +1,112 @@
+extends layout
+
+block append css_styles
+    link(href= vendor_modules + '/rickshaw/rickshaw.min.css',
+         rel='stylesheet')
+
+block content
+    .row
+        .col-sm-8
+            .canvas
+                -
+                    var figure_id= 'figure-' + graph.id;
+                    var y_axis = figure_id + '-y-axis';
+                    var x_axis = figure_id + '-x-axis';
+                .figure-title #{graph.title}
+                .figure-container#figure
+                    //- .y-axis(id= y_axis)
+                    .figure(id= figure_id)
+                    .x-axis(id= x_axis)
+                .figure-notes #{graph.summary}
+
+        .col-sm-4
+            - var figure_form_id= 'figure-' + graph.id + '-form';
+            .form-wrapper
+                .form
+                    form(method='POST', action='')
+                        .form-group
+                            - var placeholder = 'Number of cards in set (default is ' + simulation.n_cards + ')'
+                            - var value = simulation.n_cards;
+                            label(for='cards') # Cards:
+                            input#trials.form-control(type='text',
+                                                      placeholder= placeholder,
+                                                      name='cards',
+                                                      value= value,
+                                                      required='false')
+
+                        .form-group
+                            - placeholder = 'Number of triails to run (default is ' + simulation.n_trials + ')'
+                            - value = simulation.n_trials;
+                            label(for='trials') # Trials:
+                            input#trials.form-control(type='text',
+                                                      placeholder= placeholder,
+                                                      name='trials',
+                                                      value= value,
+                                                      required='false')
+
+                        .form-group
+                            button.btn.btn-primary(type='submit') Submit
+
+//- We append to the default scripts in layout.pug.
+block append scripts
+    script(src= vendor_modules + '/rickshaw/vendor/d3.min.js')
+    script(src= vendor_modules + '/rickshaw/vendor/d3.layout.min.js')
+    script(src= vendor_modules + '/rickshaw/rickshaw.min.js')
+
+    // Plot the data.
+    script(type='text/javascript').
+        'use strict';
+
+        var default_height = 480;
+
+        var figure_div = document.querySelector('##{figure_id}');
+
+        var figure = new Rickshaw.Graph( {
+                element: figure_div,
+                // padding: {top: 10, right: 10, bottom: 10, left: 10},
+                series: [ {color: 'steelblue', data: !{JSON.stringify(graph.data)} } ] } );
+
+        var x_axis_div = document.querySelector('##{x_axis}');
+        var x_axis = new Rickshaw.Graph.Axis.X({
+            graph: figure,
+            orientation: 'bottom',
+            tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+            element: x_axis_div,
+        });
+
+        /*var y_axis = new Rickshaw.Graph.Axis.Y({
+            graph: figure,
+            orientation: 'left',
+            tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+            element: document.querySelector('##{y_axis}')
+        });
+        */
+
+        function draw() {
+            var width = figure_div.clientWidth;
+            var height = (figure_div.clientHeight > default_height ? default_height : figure_div.clientHeight);
+
+            figure.configure({
+                width: width,
+                height: default_height,
+                renderer: 'bar'
+            });
+
+            figure.render();
+        };
+
+        window.addEventListener('resize', draw);
+
+        draw();
+
+        /*
+            function my_alert() {
+                // This prints foobar in the browser's developer tools javaScript console.
+                console.log('foobar');
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var element = document.querySelector('##{chart_id}');
+                element.addEventListener('mouseover', my_alert);
+            }, false);
+        */

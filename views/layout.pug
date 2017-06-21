@@ -1,0 +1,68 @@
+include mixin
+
+- var vendor_modules = 'vendor/lib/node_modules/'
+
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        // The above 3 meta tags *must* come first in the head;
+        // any other head content must come *after* these tags
+        meta(name='description', content='Tom - The Jerry monitoring application.')
+        meta(name='author', content='janos4276')
+
+        block css_styles
+            link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+                 rel='stylesheet',
+                 integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN',
+                 crossorigin='anonymous')
+
+            link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+                 rel='stylesheet',
+                 integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u',
+                 crossorigin='anonymous')
+
+            //- Optionanl theme
+                link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css',
+                rel='stylesheet',
+                integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp',
+                crossorigin='anonymous')
+
+            //- Cyborg theme.
+            link(href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css',
+                 rel='stylesheet',
+                 integrity='sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi',
+                 crossorigin='anonymous')
+
+
+            link(href='stylesheets/style.css',
+                 rel='stylesheet')
+
+        //- link(rel='icon', href='dice.ico')
+        title Tom
+
+    body
+        .container-fluid
+            +nav('Tom', 'dropdown_menu', 'inverse')
+                //- We append nav items here.
+                //- block nav_item
+                +nav_item('/', 'active') Dashboard
+                +nav_item('/about', 'active') About
+
+
+        .container-fluid
+            block content
+
+        // Bootstrap core Javascript
+        // =========================
+        // Placed at the end of the documents so that the pages load faster.
+        // These are the default scripts for all pages.
+        // Use block append scripts to append page specific scripts.
+
+        block scripts
+            script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+            script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+                   integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa',
+                   crossorigin='anonymous')
