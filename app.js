@@ -10,9 +10,12 @@ var express_validator = require('express-validator');
 var dashboard = require('./routes/dashboard');
 var about = require('./routes/about');
 
+var kafka_monitor = require('./controllers/kafka_monitor')();
+
+// Express
 var app = express();
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -24,10 +27,11 @@ app.use(express_validator());
 app.use(cookie_parser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', dashboard);
 app.use('/about', about);
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

@@ -1,5 +1,6 @@
 // -*- coding: utf-8 -*-
 'use strict';
+
 var MODULE = 'controller.dashboard'
 
 /**

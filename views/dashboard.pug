@@ -27,7 +27,7 @@ block content
                         .form-group
                             - var placeholder = 'Number of cards in set (default is ' + simulation.n_cards + ')'
                             - var value = simulation.n_cards;
-                            label(for='cards') # Cards:
+                            label(for='cards') # Unique cards:
                             input#trials.form-control(type='text',
                                                       placeholder= placeholder,
                                                       name='cards',
@@ -37,7 +37,7 @@ block content
                         .form-group
                             - placeholder = 'Number of triails to run (default is ' + simulation.n_trials + ')'
                             - value = simulation.n_trials;
-                            label(for='trials') # Trials:
+                            label(for='trials') # Collectors:
                             input#trials.form-control(type='text',
                                                       placeholder= placeholder,
                                                       name='trials',
@@ -71,7 +71,7 @@ block append scripts
             graph: figure,
             orientation: 'bottom',
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-            element: x_axis_div,
+            element: x_axis_div
         });
 
         /*var y_axis = new Rickshaw.Graph.Axis.Y({
@@ -98,15 +98,3 @@ block append scripts
         window.addEventListener('resize', draw);
 
         draw();
-
-        /*
-            function my_alert() {
-                // This prints foobar in the browser's developer tools javaScript console.
-                console.log('foobar');
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                var element = document.querySelector('##{chart_id}');
-                element.addEventListener('mouseover', my_alert);
-            }, false);
-        */
